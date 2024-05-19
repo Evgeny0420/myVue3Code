@@ -2,23 +2,10 @@
   setup
   lang="ts"
 >
-import {ref, onMounted} from "vue";
-
-const $props = defineProps(["modelValue"]);
-const $emit = defineEmits(["update:modelValue"]);
-const inputValue = ref("");
-
-onMounted(() => {
-  inputValue.value = $props.modelValue;
-});
+const inputValue = defineModel<string>("inputValue");
 
 function clear () {
   inputValue.value = "";
-  publishValue();
-}
-
-function publishValue () {
-  $emit("update:modelValue", inputValue.value)
 }
 </script>
 
@@ -28,27 +15,22 @@ function publishValue () {
       type="text"
       class="p-2 border-0 border-b w-full"
       v-model="inputValue"
-      @keyup="publishValue()"
       placeholder="Enter filter text here..."
     >
-    <button class="p-2 border-0 bg-slate-200 hover:bg-slate-300" @click="clear()">
+    <button
+      class="p-2 border-0 bg-slate-200 hover:bg-slate-300"
+      @click="clear()"
+    >
       <svg
-        width="30px"
-        height="30px"
+        class="w-7 h-7 fill-none"
         viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
       >
+        <g stroke-width="0" />
         <g
-          id="SVGRepo_bgCarrier"
-          stroke-width="0"
-        />
-        <g
-          id="SVGRepo_tracerCarrier"
           stroke-linecap="round" 
           stroke-linejoin="round"
         />
-        <g id="SVGRepo_iconCarrier">
+        <g>
           <path
             d="M17 15L11 9.00001M17 9L11 15" 
             stroke="#000000"
@@ -62,8 +44,8 @@ function publishValue () {
             stroke-linecap="round"
             stroke-linejoin="round"
           />
-          </g>
-        </svg>
+        </g>
+      </svg>
     </button>
   </div>
 </template>

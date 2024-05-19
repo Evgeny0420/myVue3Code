@@ -3,15 +3,22 @@
   lang="ts"
 >
 import { computed } from "vue";
+import { ToDoItem } from "../types/ToDoItem";
 
 const $props = defineProps({
-  "modelValue": { type: Array, default: () => [] },
-  "filter": { type: String, default: "" },
+  "modelValue": {
+    type: Array<ToDoItem>,
+    default: () => []
+  },
+  "filter":{
+    type: String,
+    default: ""
+  },
 });
 
 const $emit = defineEmits(["edit", "delete", "toggle"]);
 
-const _filtered_list = computed<any>(() => $props.filter ? $props.modelValue.filter((item: any) => item.text.toUpperCase().includes($props.filter.toUpperCase())) : $props.modelValue);
+const _filtered_list = computed(() => $props.filter ? $props.modelValue.filter(item => item.text.toUpperCase().includes($props.filter.toUpperCase())) : $props.modelValue);
 
 function emitEvent (event_name: any, payload: any) {
   $emit(event_name, payload)
@@ -37,7 +44,7 @@ function emitEvent (event_name: any, payload: any) {
       :key="item.id"
     >
       <div
-        class="cursor-pointer hover:bg-blue-100 min-w-20 flex justify-center items-center"
+        class="cursor-pointer min-w-20 flex justify-center items-center"
         @click="emitEvent('toggle', item)"
       >
         <svg
@@ -92,13 +99,21 @@ function emitEvent (event_name: any, payload: any) {
         </span>
       </div>
     </div>
-    <div v-if="_filtered_list.length==0">
+    <div
+      v-if="_filtered_list.length === 0"
+      class="flex gap-2 py-1 justify-start items-center"
+    >
+      <svg
+        class="fill-current w-5 h-5 min-w-20"
+        viewBox="0 0 448 512"
+      >
+        <path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48z"/>
+      </svg>
       <div
-        class="flex items-center gap-1"
+        class="flex items-center gap-1 w-full"
       >
         The list is empty.
       </div>
-      <div />
     </div>
   </div>
 </template>

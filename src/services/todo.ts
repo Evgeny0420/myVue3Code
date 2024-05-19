@@ -3,7 +3,7 @@ import { ToDoItem } from '../types/ToDoItem'
 const service = {
   getDefault (): ToDoItem {
     return {
-      id: Date.now().toString(16) +"_"+ Math.ceil(Math.random()*1000).toString(16),
+      id: `${Date.now().toString(16)}_${Math.ceil(Math.random()*1000).toString(16)}`,
       text: "",
       status: "not_started"
     }

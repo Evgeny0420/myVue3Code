@@ -48,7 +48,7 @@ function closeModal (accept: boolean = false) {
           class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded"
           @click="closeModal(true)"
         >
-          Acceot
+          Accept
         </button>
         <button
           class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded"

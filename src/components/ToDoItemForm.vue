@@ -2,27 +2,10 @@
   setup
   lang="ts"
 >
-import { ref } from "vue";
 import todoService from "../services/todo";
+import { ToDoItem } from "../types/ToDoItem";
 
-const $props = defineProps({
-  modelValue: Object,
-  default () {
-    return {}
-  }
-});
-
-console.log($props.modelValue)
-const $emit = defineEmits(["update:modelValue"]);
-const item = ref({});
-
-item.value = { ...$props.modelValue };
-
-function emitUpdate () {
-  $emit("update:modelValue", item.value);
-}
-
-
+const _item = defineModel<ToDoItem>("item");
 </script>
 
 <template>
@@ -34,8 +17,7 @@ function emitUpdate () {
       <input 
         type="text" 
         class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-        v-model.string="item.text" 
-        @blur="emitUpdate"
+        v-model="_item!.text"
       >
     </div>
 
@@ -43,8 +25,7 @@ function emitUpdate () {
       <strong class="mb-2">Status</strong>
       <select 
         class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-        v-model.string="item.status" 
-        @change="emitUpdate"
+        v-model="_item!.status"
       >
         <option 
           v-for="state in todoService.getStatusList()" 
@@ -57,4 +38,3 @@ function emitUpdate () {
     </div>
   </div>
 </template>
-
