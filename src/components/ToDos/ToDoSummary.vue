@@ -3,8 +3,8 @@
   lang="ts"
 >
 import { computed } from "vue";
-import todoService from "../services/todo";
-import { ToDoItem } from "../types/ToDoItem";
+import todoService from "../../services/todo";
+import { ToDoItem } from "../../types/ToDoItem";
 
 const $props = defineProps({
   items: {

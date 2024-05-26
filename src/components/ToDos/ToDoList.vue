@@ -3,7 +3,7 @@
   lang="ts"
 >
 import { computed } from "vue";
-import { ToDoItem } from "../types/ToDoItem";
+import { ToDoItem } from "../../types/ToDoItem";
 
 const $props = defineProps({
   "modelValue": {

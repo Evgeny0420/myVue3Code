@@ -1,17 +1,17 @@
-import { App, reactive } from 'vue';
-import Modal from './Modal.vue';
+import { App, reactive, Plugin } from "vue";
+import Modal from "./Modal.vue";
+import { ModalState, Modals } from "../../types/Modals";
 
-const current = reactive<Record<string, any>>({
-  name: '',
+const current = reactive<ModalState>({
+  name: "",
   resolve: null,
   reject: null,
 });
-
-const api = {
+const api: Modals = {
   resetName () {
     current.name = '';
   },
-  active () {
+  active() {
     return current.name;
   },
   show (name: string) {
@@ -22,20 +22,23 @@ const api = {
     })
   },
   accept () {
-    current.resolve();
-    this.resetName();
+    if (current.resolve) {
+      current.resolve();
+      this.resetName();
+    }
   },
-  cancel () {
-    current.reject();
-    this.resetName();
+  cancel() {
+    if (current.reject) {
+      current.reject();
+      this.resetName();
+    }
   }
 };
-
-const plugin = {
+const plugin: Plugin = {
   install(App: App, options: Record<string, any> = {}) {
     App.component("Modal", Modal);
     App.provide("$modals", api);
-  }
-}
+  },
+};
 
 export default plugin;

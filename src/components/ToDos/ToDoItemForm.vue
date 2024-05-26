@@ -2,8 +2,8 @@
   setup
   lang="ts"
 >
-import todoService from "../services/todo";
-import { ToDoItem } from "../types/ToDoItem";
+import todoService from "../../services/todo";
+import { ToDoItem } from "../../types/ToDoItem";
 
 const _item = defineModel<ToDoItem>("item");
 </script>

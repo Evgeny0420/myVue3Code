@@ -2,19 +2,18 @@
   setup
   lang="ts"
 >
-import MainHeader from "./components/headers/MainHeader.vue";
-import ToDoProject from "./components/ToDoProject.vue";
+import Sidebar from "./components/Sidebar/Sidebar.vue"
 </script>
 
 <template>
   <div
-    class="w-screen min-h-screen p-0"
+    class="w-screen h-screen p-0 overflow-hidden grid grid-cols-custom"
   >
-    <MainHeader />
+    <Sidebar />
     <main
-      class="mx-auto px-4"
+      class="overflow-hidden overflow-y-auto"
     >
-      <ToDoProject />
+      <router-view></router-view>
     </main>
   </div>
 </template>
